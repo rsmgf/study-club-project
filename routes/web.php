@@ -15,13 +15,16 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [TaskController::class, 'dashboard'])->name('dashboard');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::patch('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
-    Route::get('/tasks/pending', [TaskController::class, 'pending'])->name('tasks.pending');
-    Route::get('/tasks/completed', [TaskController::class, 'completed'])->name('tasks.completed');
-    Route::get('/tasks/deleted', [TaskController::class, 'deleted'])->name('tasks.deleted');
+    Route::get('/pending', [TaskController::class, 'pending'])->name('pending');
+    Route::get('/completed', [TaskController::class, 'completed'])->name('completed');
+    Route::get('/deleted', [TaskController::class, 'deleted'])->name('deleted');
+
+    Route::resource('tasks', TaskController::class)->except(['show']);
+    
 });
 
 require __DIR__.'/auth.php';

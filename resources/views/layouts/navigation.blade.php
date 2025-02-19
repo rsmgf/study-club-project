@@ -15,8 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('pending')" :active="request()->routeIs('pending')">
+                        {{ __('Pending Tasks') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('completed')" :active="request()->routeIs('completed')">
+                        {{ __('Completed Tasks') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('deleted')" :active="request()->routeIs('deleted')">
+                        {{ __('Deleted Tasks') }}
+                    </x-nav-link>
                 </div>
             </div>
+            
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
