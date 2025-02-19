@@ -1,24 +1,27 @@
 <?php
-
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Dashboard with tasks
-Route::get('/dashboard', [TaskController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-    Route::post('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete');
-    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
-
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard');
+    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::patch('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
+    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+    Route::get('/tasks/pending', [TaskController::class, 'pending'])->name('tasks.pending');
+    Route::get('/tasks/completed', [TaskController::class, 'completed'])->name('tasks.completed');
+    Route::get('/tasks/deleted', [TaskController::class, 'deleted'])->name('tasks.deleted');
 });
 
 require __DIR__.'/auth.php';
