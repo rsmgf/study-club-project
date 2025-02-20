@@ -24,7 +24,11 @@
 
     {{--  Page Content  --}}
     <main>
-        {{ $slot }}
+        @if(isset($slot))
+            {{ $slot }}  {{-- For components like <x-app-layout> --}}
+        @else
+            @yield('content')  {{-- For layouts using @extends --}}
+        @endif
     </main>
 
     {{--  Bootstrap JS  --}}
