@@ -1,51 +1,66 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+@extends('layouts.app')
+
+@section('title', 'Dashboard')
+
+@section('header')
+<header class="bg-white shadow">
+    <div class="container py-4">
+        <h2 class="fw-semibold fs-4 text-dark">
             {{ __('Dashboard') }}
         </h2>
-    </x-slot>
+    </div>
+</header>
+@endsection
 
-    <div class="py-12 max-w-4xl mx-auto">
-        <!-- Task Summary -->
-        <div class="grid grid-cols-3 gap-4 mb-6">
-            <a href="{{ route('pending') }}" class="p-4 bg-yellow-100 text-yellow-700 rounded-md text-center">
+@section('content')
+<div class="container my-4">
+    <!-- Task Summary -->
+    <div class="row g-3 mb-4 text-center">
+        <div class="col-md-4">
+            <a href="{{ route('pending') }}" class="p-3 bg-warning text-dark rounded text-decoration-none d-block">
                 Pending Tasks ({{ $pendingCount ?? 0 }})
             </a>
-            <a href="{{ route('completed') }}" class="p-4 bg-green-100 text-green-700 rounded-md text-center">
+        </div>
+        <div class="col-md-4">
+            <a href="{{ route('completed') }}" class="p-3 bg-success text-white rounded text-decoration-none d-block">
                 Completed Tasks ({{ $completedCount ?? 0 }})
             </a>
-            <a href="{{ route('deleted') }}" class="p-4 bg-red-100 text-red-700 rounded-md text-center">
+        </div>
+        <div class="col-md-4">
+            <a href="{{ route('deleted') }}" class="p-3 bg-danger text-white rounded text-decoration-none d-block">
                 Deleted Tasks ({{ $deletedCount ?? 0 }})
             </a>
         </div>
-        
-
-        <!-- Quick Add Task Form -->
-        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-            <h3 class="text-lg font-semibold mb-4">Add a New Task</h3>
-            <form action="{{ route('tasks.store') }}" method="POST">
-                @csrf
-                <div class="flex">
-                    <input type="text" name="title" placeholder="New Task"
-                        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring">
-                    <button type="submit" class="ml-2 px-4 py-2 bg-blue-600 text-blue rounded-md">+</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Quick View of Recent Tasks -->
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h3 class="text-lg font-semibold mb-4">Recent Tasks</h3>
-            <ul>
-                @foreach ($recentTasks as $task)
-                    <li class="flex justify-between items-center p-2 border-b">
-                        <span class="{{ $task->status == 'Completed' ? 'line-through text-gray-500' : '' }}">
-                            {{ $task->title }}
-                        </span>
-                        <small class="text-gray-600">{{ $task->status }}</small>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
     </div>
-</x-app-layout>
+
+    <!-- Quick Add Task Form -->
+    <div class="card shadow-sm p-4 mb-4">
+        <h3 class="fs-5 fw-semibold mb-3">Add a New Task</h3>
+        <form action="{{ route('tasks.store') }}" method="POST">
+            @csrf
+            <div class="input-group">
+                <input type="text" name="title" class="form-control" placeholder="New Task" required>
+                <input type="datetime-local" name="due_date" class="form-control" required>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Quick View of Recent Tasks -->
+    <div class="card shadow-sm p-4">
+        <h3 class="fs-5 fw-semibold mb-3">Recent Tasks</h3>
+        <ul class="list-group">
+            @foreach ($recentTasks as $task)
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="{{ $task->status == 'Completed' ? 'text-decoration-line-through text-muted' : '' }}">
+                        {{ $task->title }}
+                    </span>
+                    <small class="text-secondary">{{ $task->status }}</small>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endsection

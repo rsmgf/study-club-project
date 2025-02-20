@@ -1,32 +1,30 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand text-white fw-bold" href="{{ route('dashboard') }}">
+            TASKLY
+        </a>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('pending')" :active="request()->routeIs('pending')">
-                        {{ __('Pending Tasks') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('completed')" :active="request()->routeIs('completed')">
-                        {{ __('Completed Tasks') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('deleted')" :active="request()->routeIs('deleted')">
-                        {{ __('Deleted Tasks') }}
-                    </x-nav-link>
-                </div>
-            </div>
-            
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('pending') ? 'active' : '' }}" href="{{ route('pending') }}">Pending Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('completed') ? 'active' : '' }}" href="{{ route('completed') }}">Completed Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('deleted') ? 'active' : '' }}" href="{{ route('deleted') }}">Deleted Tasks</a>
+                </li>
+            </ul>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">

@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Each task belongs to a user
             $table->string('title');
             $table->enum('status', ['Pending', 'Completed', 'Overdue'])->default('Pending');
             $table->timestamp('due_date')->nullable();
@@ -22,4 +23,3 @@ return new class extends Migration {
         Schema::dropIfExists('tasks');
     }
 };
-
