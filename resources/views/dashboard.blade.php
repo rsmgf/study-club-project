@@ -57,7 +57,7 @@
                     <span class="{{ $task->status == 'Completed' ? 'text-decoration-line-through text-muted' : '' }}">
                         {{ $task->title }}
                     </span>
-                    <small class="text-secondary">{{ $task->status }}</small>
+                    <small class="text-success fw-bold">{{ $task->status }}</small>
                 </li>
             @endforeach
         </ul>

@@ -13,10 +13,21 @@
     {{--  Bootstrap Icons  --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-    {{--  Fonts  --}}
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    {{-- Google Fonts  --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Glitch&family=Saira+Stencil+One&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+
+    {{-- Custom Css --}}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        body {
+            background: linear-gradient(to right, #64B5F6, #157cc1);
+        }
+    </style>
 </head>
 
 <body>
@@ -24,6 +35,7 @@
 
     {{--  Page Content  --}}
     <main>
+        
         @if(isset($slot))
             {{ $slot }}  {{-- For components like <x-app-layout> --}}
         @else

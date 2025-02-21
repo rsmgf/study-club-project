@@ -1,9 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<style>
+    nav{
+    background: linear-gradient(90deg, #1e3a8a, #4f46e5);
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
     <div class="container">
         <!-- Logo -->
-        <a class="navbar-brand text-white fw-bold" href="{{ route('dashboard') }}">
-            TASKLY
-        </a>
+        <x-logo-log />
 
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,16 +16,24 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
+                    <a class="nav-link text-white {{ request()->routeIs('dashboard') ? 'fw-bold' : '' }}" href="{{ route('dashboard') }}">
+                        Dashboard
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('pending') ? 'active' : '' }}" href="{{ route('pending') }}">Pending Tasks</a>
+                    <a class="nav-link text-white {{ request()->routeIs('pending') ? 'fw-bold' : '' }}" href="{{ route('pending') }}">
+                        Pending Tasks
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('completed') ? 'active' : '' }}" href="{{ route('completed') }}">Completed Tasks</a>
+                    <a class="nav-link text-white {{ request()->routeIs('completed') ? 'fw-bold' : '' }}" href="{{ route('completed') }}">
+                        Completed Tasks
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('deleted') ? 'active' : '' }}" href="{{ route('deleted') }}">Deleted Tasks</a>
+                    <a class="nav-link text-white {{ request()->routeIs('deleted') ? 'fw-bold' : '' }}" href="{{ route('deleted') }}">
+                        Deleted Tasks
+                    </a>
                 </li>
             </ul>
 
@@ -30,7 +41,7 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-500 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:bg-gray-500 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">

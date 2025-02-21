@@ -20,7 +20,10 @@
                                 <i class="bi bi-check-lg"></i>
                             </button>
                         </form>
-                        <span>{{ $task->title }}</span>
+                        <span class="me-3">{{ $task->title }}</span>
+                        <span class="text-muted">
+                            Due: {{ \Carbon\Carbon::parse($task->due_date)->format('M d, Y h:i A') }}
+                        </span>
                     </div>
                     <div>
                         <!-- Delete Button -->
