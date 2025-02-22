@@ -18,19 +18,18 @@ class Task extends Model
     const STATUS_COMPLETED = 'Completed';
     const STATUS_OVERDUE = 'Overdue';
 
-    // Relationships
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Scope to get tasks only for the logged-in user
+    // show tasks only for the logged-in user
     public function scopeOwnedByUser($query, $userId)
     {
         return $query->where('user_id', $userId);
     }
 
-    // Automatically mark overdue tasks
+    // Automatically set overdue tasks
     public static function updateOverdueTasks($userId)
     {
         self::where('user_id', $userId)
