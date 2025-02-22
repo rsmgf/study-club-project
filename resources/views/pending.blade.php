@@ -6,13 +6,13 @@
 <div class="container my-4">
     <h2 class="fw-semibold fs-4 text-center">Pending Tasks</h2>
 
-    <!-- Task List -->
+    {{-- Task List --}}
     <div class="card shadow-sm p-4">
         <ul class="list-group">
             @forelse ($tasks as $task)
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <!-- Checkmark Button -->
+                        {{-- Checkmark Button --}}
                         <form action="{{ route('tasks.update', $task) }}" method="POST">
                             @csrf
                             @method('PUT')
@@ -20,13 +20,17 @@
                                 <i class="bi bi-check-lg"></i>
                             </button>
                         </form>
-                        <span class="me-3">{{ $task->title }}</span>
-                        <span class="text-muted">
-                            Due: {{ \Carbon\Carbon::parse($task->due_date)->format('M d, Y h:i A') }}
-                        </span>
+                            <div class="d-flex flex-column">
+                                <span class="{{ $task->status == 'Completed' ? 'text-decoration-line-through text-muted' : '' }}">
+                                    {{ $task->title }}
+                                </span>
+                                <small class="text-muted">
+                                    Due: {{ \Carbon\Carbon::parse($task->due_date)->format('M d, Y h:i A') }}
+                                </small>
+                            </div>
                     </div>
                     <div>
-                        <!-- Delete Button -->
+                        {{-- Delete Button --}}
                         <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')

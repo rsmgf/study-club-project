@@ -14,7 +14,7 @@
 
 @section('content')
 <div class="container my-4">
-    <!-- Task Summary -->
+    {{-- Tasks --}}
     <div class="row g-3 mb-4 text-center">
         <div class="col-md-4">
             <a href="{{ route('pending') }}" class="p-3 bg-warning text-dark rounded text-decoration-none d-block">
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <!-- Quick Add Task Form -->
+    {{-- Add Task --}}
     <div class="card shadow-sm p-4 mb-4">
         <h3 class="fs-5 fw-semibold mb-3">Add a New Task</h3>
         <form action="{{ route('tasks.store') }}" method="POST">
@@ -48,17 +48,38 @@
         </form>
     </div>
 
-    <!-- Quick View of Recent Tasks -->
+    {{-- View Tasks --}}
     <div class="card shadow-sm p-4">
         <h3 class="fs-5 fw-semibold mb-3">Recent Tasks</h3>
         <ul class="list-group">
             @foreach ($recentTasks as $task)
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span class="{{ $task->status == 'Completed' ? 'text-decoration-line-through text-muted' : '' }}">
-                        {{ $task->title }}
-                    </span>
-                    <small class="text-success fw-bold">{{ $task->status }}</small>
-                </li>
+            <li class="list-group-item d-flex align-items-center">
+                {{-- Tasks --}}
+                <span class="flex-grow-1 {{ $task->status == 'Completed' ? 'text-decoration-line-through text-muted' : '' }}">
+                    {{ $task->title }}
+                </span>
+        
+                {{-- D-Date --}}
+                <span class="text-muted text-center w-25">
+                    Due: {{ \Carbon\Carbon::parse($task->due_date)->format('M d, Y h:i A') }}
+                </span>
+        
+                <small class="fw-bold ms-3 
+                    {{ $task->status == 'Overdue' ? 'text-danger' : ($task->status == 'Completed' ? 'text-success' : '') }}">
+                    {{ $task->status }}
+                </small>
+        
+                {{-- Delete Button (only overdue) --}}
+                @if ($task->status == 'Overdue')
+                    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="ms-3">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+                @endif
+            </li>
             @endforeach
         </ul>
     </div>

@@ -12,7 +12,7 @@ class TaskController extends Controller
     public function dashboard()
     {
         $userId = Auth::id();
-        Task::updateOverdueTasks($userId); // Update overdue tasks
+        Task::updateOverdueTasks($userId); 
 
         return view('dashboard', [
             'pendingCount' => Task::ownedByUser($userId)->where('status', 'Pending')->count(),
@@ -43,12 +43,10 @@ class TaskController extends Controller
         $this->authorizeTask($task);
 
         if ($request->has('mark_completed')) { 
-            // If "Mark as Completed" was clicked
             $task->update(['status' => 'Completed']);
             return redirect()->route('completed')->with('success', 'Task marked as completed!');
         }
 
-        // Otherwise, allow full editing
         $request->validate([
             'title' => 'required|string|max:255',
             'due_date' => 'required|date',
@@ -91,7 +89,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $this->authorizeTask($task);
-        return view('edit', compact('task')); // Ensure the correct view file name
+        return view('edit', compact('task')); 
     }
 
 

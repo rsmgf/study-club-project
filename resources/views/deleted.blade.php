@@ -6,7 +6,7 @@
 <div class="container my-4">
     <h2 class="fw-semibold fs-4 text-center">Deleted Tasks</h2>
 
-    <!-- Task List -->
+    {{-- Task List --}}
     <div class="card shadow-sm p-4">
         <ul class="list-group">
             @forelse ($tasks as $task)
@@ -15,7 +15,7 @@
                         <span class="text-muted">{{ $task->title }}</span>
                     </div>
                     <div>
-                        <!-- Restore Button -->
+                        {{-- Restore Button --}}
                         <form action="{{ route('tasks.restore', $task->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('PATCH')
@@ -24,7 +24,7 @@
                             </button>
                         </form>
                         
-                        <!-- Permanent Delete Button -->
+                        {{-- Permanent Delete Button --}}
                         <form action="{{ route('tasks.forceDelete', $task->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
